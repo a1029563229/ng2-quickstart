@@ -1,0 +1,54 @@
+<h1>{{title | uppercase}}</h1>
+<h2>My favorite hero is: {{myHero?.name}}</h2>
+<p>Heroes:</p>
+<ul>
+  <li *ngFor="let hero of heroes;let i = index;let last = last;let even = even;let odd = odd; trackBy: trackByHeroes" title="{{hero.name}}">
+    <hero-detail [hero]="hero" (deleteHero)="deleteHero($event)"></hero-detail>
+    <div>
+      {{'id is' + getVal(hero)}}
+    </div>
+    <div on-click="takeParams(last, even, odd)">
+      Click Me
+    </div>
+    <div [style.font-size.px]="24" [ngSwitch]="hero.emotion">
+      <span *ngSwitchCase="'bad'">
+        My emotion is Bad!
+      </span>
+      <span *ngSwitchCase="'happy'">
+        My emotion is Happy! I want fly!!!
+      </span>
+      <span *ngSwitchCase="'confused'">
+        My emotion is confused.
+      </span>
+      <span *ngSwitchDefault>
+        I have not emotion, and want smile.
+      </span>
+    </div>    
+  </li>
+  <input type="text" [value]="myHero.name" (input)="myHero.name = $event.target.value" #heroInput> {{heroInput.value}}
+  <h1 (click)="takeInput(heroTitle)">Click to take input</h1>
+</ul>
+
+<div>
+  {{ heroes | json }}
+</div>
+
+<h1>
+  Sizer
+  <my-sizer [(size)]="fontSizePx"></my-sizer>
+  <div [style.font-size.px]="fontSizePx">Resizable Text</div>
+</h1>
+
+<h1 [ngClass]="currentClasses" #heroTitle>
+  Test Class
+</h1>
+
+<div [style.font-size.px]="isSpecial ? 40 : 10">
+  Test Style
+</div>
+
+<div [ngStyle]="currentStyles">
+  {{myHero.name}}
+</div>
+
+<input type="text" [ngModel]="myHero.name" (ngModelChange)="myHero.name = getUpperCase($event)">
